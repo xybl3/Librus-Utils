@@ -1,4 +1,7 @@
 *{
-    background-color: black !important;
+    background-color: #1A202C !important;
     color: white !important;
+}
+span.grade-box{
+    background-color: darkolivegreen !important;
 }
