@@ -1,7 +1,17 @@
-body, table, tbody, tr{
-    background-color: #1A202C !important;
-    color: white !important;
+:root{
+    --font-color: whitesmoke;
 }
-span.grade-box{
-    background-color: darkolivegreen !important;
+
+body{
+    background-color: #1f1f1f;
+    color: var(--font-color);
+}
+table, .container-background{
+    background-color: #484848 !important;
+    color: var(--font-color) !important;
+}
+
+tr, th, td{
+background-color: #323232 !important;
+color: whitesmoke !important;
 }
