@@ -12,7 +12,7 @@ function insertGrades() {
     gradesTable.children[0].appendChild(document.createElement("td")).innerHTML =
         "<p style='text-align: center;'>-></p>"; //Oceny biezace
     gradesTable.children[0].appendChild(document.createElement("td")).innerHTML = `<p>${calcSemestr2()}</p>`; //Sr2
-    gradesTable.children[0].appendChild(document.createElement("td")).innerHTML = `<p>${calcProponowane2()}</p>`; //II
+    gradesTable.children[0].appendChild(document.createElement("td")).innerHTML = `<p>---</p>`; //II
     gradesTable.children[0].appendChild(document.createElement("td")); //Sr.R
     gradesTable.children[0].appendChild(document.createElement("td")); //R
 }
@@ -51,15 +51,17 @@ function calcKoncowe1() {
             return;
         semestr1Koncowe.push(parseInt(entry.querySelector("span").querySelector("a").innerText));
     });
-    console.log(semestr1Koncowe);
     return parseFloat((semestr1Koncowe.reduce((a, b) => a + b) / semestr1Koncowe.length).toFixed(2));
 }
 function calcSemestr2() {
     let semestr2Grades = [];
     const przedmiotyLibrus = Array.from(gradesTable.children[1].children).filter((e, idx) => idx % 2 === 0);
+    przedmiotyLibrus.pop();
     przedmiotyLibrus.forEach((val, idX) => {
+        console.log(val.querySelectorAll("td.right"));
         const entry = val.querySelectorAll("td.right")[1];
-        if (entry === null)
+        // console.log("entry", entry);
+        if (entry === null || entry.childNodes.length === 0)
             return;
         if (entry.innerHTML === "-")
             return;
@@ -67,18 +69,28 @@ function calcSemestr2() {
     });
     return parseFloat((semestr2Grades.reduce((a, b) => a + b) / semestr2Grades.length).toFixed(2));
 }
-function calcProponowane2() {
-    let semestr2Proponowane = [];
-    const przedmiotyLibrus = Array.from(gradesTable.children[1].children).filter((e, idx) => idx % 2 === 0);
-    przedmiotyLibrus.forEach((val, idX) => {
-        let entry = val.querySelectorAll("td.center")[3];
-        if (entry.firstChild.textContent === " - " ||
-            idX === przedmiotyLibrus.length - 1)
-            return;
-        semestr2Proponowane.push(parseInt(entry.querySelector("span").querySelector("a").innerText));
-    });
-    return parseFloat((semestr2Proponowane.reduce((a, b) => a + b) / semestr2Proponowane.length).toFixed(2));
-}
+// function calcProponowane2(): Grade {
+//   let semestr2Proponowane: Grades = [];
+//   const przedmiotyLibrus = Array.from(gradesTable.children[1].children).filter(
+//     (e, idx) => idx % 2 === 0
+//   ) as Array<Element>;
+//   przedmiotyLibrus.forEach((val, idX) => {
+//     let entry = val.querySelectorAll("td.center")[3];
+//     if (
+//       entry.firstChild.textContent === " - " ||
+//       idX === przedmiotyLibrus.length - 1
+//     )
+//       return;
+//     semestr2Proponowane.push(
+//       parseInt(entry.querySelector("span").querySelector("a").innerText)
+//     );
+//   });
+//   return parseFloat(
+//     (
+//       semestr2Proponowane.reduce((a, b) => a + b) / semestr2Proponowane.length
+//     ).toFixed(2)
+//   );
+// }
 function calcKoncowe2() {
     let semestr2Koncowe = [];
     const przedmiotyLibrus = Array.from(gradesTable.children[1].children).filter((e, idx) => idx % 2 === 0);
